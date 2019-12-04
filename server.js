@@ -32,18 +32,18 @@ app.get("/tables", function(req, res) {
     res.sendFile(path.join(__dirname, "tables.html"));
 });
 
-// Displays all characters
+// Displays reservations
 app.get("/api/tables", function(req, res) {
     return res.json(tables);
 });
 
-// Displays a single character, or returns false
+// Displays waitlist
 app.get("/api/waitlist", function(req, res) {
 
     return res.json(waitlist);
 });
 
-// Create New Characters - takes in JSON input
+// Create New Reservations - takes in JSON input
 app.post("/api/tables", function(req, res) {
     // req.body hosts is equal to the JSON post sent from the user
     // This works because of our body parsing middleware

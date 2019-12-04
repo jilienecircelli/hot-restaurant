@@ -80,7 +80,7 @@
                 reservationName: $("#reservationName").val().trim()
             };
             console.log(newReservation)
-                // Question: What does this code do??
+
             $.post("/api/tables", newReservation)
                 .then(function(data) {
                     console.log("tables.html", data);
