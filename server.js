@@ -39,17 +39,8 @@ app.get("/api/tables", function(req, res) {
 
 // Displays a single character, or returns false
 app.get("/api/waitlist", function(req, res) {
-    // var chosen = req.params.character;
 
-    // console.log(chosen);
-
-    // for (var i = 0; i < characters.length; i++) {
-    //     if (chosen === characters[i].routeName) {
-    //         return res.json(characters[i]);
-    //     }
-    // }
-
-    return res.json(false);
+    return res.json(waitlist);
 });
 
 // Create New Characters - takes in JSON input
@@ -58,15 +49,14 @@ app.post("/api/tables", function(req, res) {
     // This works because of our body parsing middleware
     var newReservation = req.body;
 
-    // Using a RegEx Pattern to remove spaces from newCharacter
-    // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-    newReservation.routeName = newReservation.name.replace(/\s+/g, "").toLowerCase();
-
     console.log(newReservation);
 
-    tables.push(newReservation);
-
-    res.json(newReservation);
+    if (tables.length >= 5) {
+        waitlist.push(newReservation)
+    } else {
+        tables.push(newReservation);
+    }
+    res.send();
 });
 
 // Starts the server to begin listening

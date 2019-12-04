@@ -53,27 +53,40 @@
     ​
 
     <script type="text/javascript">
-        $("#search-btn").on("click", function() {
-            var reservationSearch = $("#reservation-search").val().trim();
+        $.get("/api/tables", function(tables) {
+            console.log(tables);
+            if (tables.length > 0) {
+                tables.forEach(table => {
+                    var wrapperEl = $("<div class='card'>")
+                    var nameEl = $("<div>").text(table.name);
+                    var phoneEl = $("<div>").text(table.phone);
+                    var emailEl = $("<div>").text(table.email);
+                    var resNameEl = $("<div>").text(table.reservationName);
+                    $("#reservations").append(wrapperEl)
+                    wrapperEl.append(nameEl)
+                    wrapperEl.append(phoneEl)
+                    wrapperEl.append(emailEl)
+                    wrapperEl.append(resNameEl)
+                });
+            }
+        });
 
-            // Using a RegEx Pattern to remove spaces from searchedCharacter
-            // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-            searchedReservation = searchedReservation.replace(/\s+/g, "").toLowerCase();
-
-            $.get("/api/reservations/" + searchedReservation, function(data) {
-                console.log(data);
-                if (data) {
-                    $("#stats").show();
-                    $("#name").text(data.name);
-                    $("#phone").text(data.phone);
-                    $("#email").text(data.email);
-                    $("#unique-id").text(data.uniqueID);
-                } else {
-                    $("#name").text(
-                        "No reservations found!");
-                    $("#stats").hide();
-                }
-            });
+        $.get("/api/waitlist", function(waitlist) {
+            console.log(waitlist);
+            if (waitlist.length > 0) {
+                waitlist.forEach(list => {
+                    var wrapperEl = $("<div class='card'>")
+                    var nameEl = $("<div>").text(list.name);
+                    var phoneEl = $("<div>").text(list.phone);
+                    var emailEl = $("<div>").text(list.email);
+                    var resNameEl = $("<div>").text(list.reservationName);
+                    $("#waitlist").append(wrapperEl)
+                    wrapperEl.append(nameEl)
+                    wrapperEl.append(phoneEl)
+                    wrapperEl.append(emailEl)
+                    wrapperEl.append(resNameEl)
+                });
+            }
         });
     </script>
     ​
